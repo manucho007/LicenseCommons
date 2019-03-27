@@ -79,7 +79,9 @@ public class SignatureServiceTest {
 
         byte[] signatureBytes = signatureService.sign(message.getBytes(), privateKey);
 
-        signatureBytes[signatureBytes.length-1] = 'd';
+        int changeByte = (int) signatureBytes[signatureBytes.length-1];
+
+        signatureBytes[signatureBytes.length-1] = (byte) (changeByte+1);
 
         PublicKey publicKey = keyPair.getPublic();
 
@@ -119,7 +121,9 @@ public class SignatureServiceTest {
 
         byte[] publicKeyBytes = publicKey.getEncoded();
 
-        publicKeyBytes[publicKeyBytes.length-1] = 'd';
+        int changeByte = (int) publicKeyBytes[publicKeyBytes.length-1];
+
+        publicKeyBytes[publicKeyBytes.length-1] = (byte) (changeByte+1);
 
         publicKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
 
