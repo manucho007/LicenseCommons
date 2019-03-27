@@ -5,10 +5,16 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Base64;
 
-public class Response {
+public class ResponseSignUtil {
     private boolean access;
     private Instant timestamp;
     private byte[] hash;
+
+    public ResponseSignUtil(String protectedObject, boolean access, Instant timestamp) throws NoSuchAlgorithmException {
+        this.access = access;
+        this.timestamp = timestamp;
+        this.hash = generateHash(protectedObject, access, timestamp);
+    }
 
     public boolean isAccess() {
         return access;
@@ -34,7 +40,7 @@ public class Response {
         this.hash = hash;
     }
 
-    public byte[] generateHash(String protectedObject) throws NoSuchAlgorithmException {
+    public static byte[] generateHash(String protectedObject, boolean access, Instant timestamp) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
 
         String saltString = "RtKDec78";
