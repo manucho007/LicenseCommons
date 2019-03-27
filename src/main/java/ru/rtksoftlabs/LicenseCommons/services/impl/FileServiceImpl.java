@@ -1,4 +1,6 @@
-package ru.rtksoftlabs.LicenseCommons.services;
+package ru.rtksoftlabs.LicenseCommons.services.impl;
+
+import ru.rtksoftlabs.LicenseCommons.services.FileService;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

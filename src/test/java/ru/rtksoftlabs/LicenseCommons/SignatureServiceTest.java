@@ -6,9 +6,9 @@ import com.fasterxml.jackson.dataformat.javaprop.JavaPropsSchema;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.rtksoftlabs.LicenseCommons.services.FileService;
-import ru.rtksoftlabs.LicenseCommons.services.FileServiceImpl;
+import ru.rtksoftlabs.LicenseCommons.services.impl.FileServiceImpl;
 import ru.rtksoftlabs.LicenseCommons.services.SignatureService;
-import ru.rtksoftlabs.LicenseCommons.services.SignatureServiceImpl;
+import ru.rtksoftlabs.LicenseCommons.services.impl.SignatureServiceImpl;
 import ru.rtksoftlabs.LicenseCommons.util.CustomCase;
 
 import java.io.IOException;

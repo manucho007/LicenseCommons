@@ -1,5 +1,6 @@
-package ru.rtksoftlabs.LicenseCommons.services;
+package ru.rtksoftlabs.LicenseCommons.services.impl;
 
+import ru.rtksoftlabs.LicenseCommons.services.ZipLicenseService;
 import ru.rtksoftlabs.LicenseCommons.util.SignedLicenseContainer;
 
 import java.io.ByteArrayInputStream;
