@@ -39,15 +39,15 @@ public class Response {
 
         String saltString = "RtKDec78";
 
-        String stringToEncrypt = protectedObject.replace("/", "");
+        StringBuilder stringToEncrypt = new StringBuilder(protectedObject.replace("/", ""));
 
-        stringToEncrypt += access;
+        stringToEncrypt.append(access);
 
-        stringToEncrypt += timestamp.toString();
+        stringToEncrypt.append(timestamp.toString());
 
-        stringToEncrypt += saltString;
+        stringToEncrypt.append(saltString);
 
-        messageDigest.update(stringToEncrypt.getBytes());
+        messageDigest.update(stringToEncrypt.toString().getBytes());
 
         return Base64.getEncoder().encode(messageDigest.digest());
     }
