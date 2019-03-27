@@ -1,30 +1,19 @@
 package ru.rtksoftlabs.LicenseCommons;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.Test;
+import ru.rtksoftlabs.LicenseCommons.services.JsonMapperService;
+import ru.rtksoftlabs.LicenseCommons.services.impl.JsonMapperServiceImpl;
 import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObject;
 import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObjects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProtectedObjectsTest {
-    private ObjectMapper getJsonMapper() {
-        ObjectMapper mapper = new ObjectMapper();
+    private JsonMapperService jsonMapperService;
 
-        mapper.registerModule(new JavaTimeModule());
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-
-        return mapper;
-    }
-
-    private String generateJson(ProtectedObjects protectedObjects) throws JsonProcessingException {
-        return getJsonMapper().writeValueAsString(protectedObjects);
+    public ProtectedObjectsTest() {
+        jsonMapperService = new JsonMapperServiceImpl();
     }
 
     @Test
@@ -42,7 +31,7 @@ public class ProtectedObjectsTest {
 
         protectedObject1.addChild("Roles");
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App2\":{\"data\":\"App2\"},\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\"}]}}}";
 
@@ -65,7 +54,7 @@ public class ProtectedObjectsTest {
         protectedObject2.addChild("role2");
         protectedObject2.addChild("role3");
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\",\"children\":[{\"data\":\"role1\"},{\"data\":\"role2\"},{\"data\":\"role3\"}]}]}}}";
 
@@ -88,7 +77,7 @@ public class ProtectedObjectsTest {
 
         protectedObject1.addChild(protectedObject2);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Roles\",\"children\":[{\"data\":\"role1\"}]},{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"}]}]}}}";
 
@@ -107,7 +96,7 @@ public class ProtectedObjectsTest {
 
         protectedObjects.add(protectedObject1);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"}]}]}}}";
 
@@ -126,7 +115,7 @@ public class ProtectedObjectsTest {
 
         protectedObjects.add(protectedObject1);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\",\"children\":[{\"data\":\"sc2\"},{\"data\":\"sc3\"}]}]}]}}}";
 
@@ -147,7 +136,7 @@ public class ProtectedObjectsTest {
         protectedObjects.add(protectedObject1);
         protectedObjects.add(protectedObject2);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\",\"children\":[{\"data\":\"sc2\"},{\"data\":\"sc3\"}]}]}]}}}";
 
@@ -168,7 +157,7 @@ public class ProtectedObjectsTest {
         protectedObjects.add(protectedObject1);
         protectedObjects.add(protectedObject2);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc2\",\"children\":[{\"data\":\"sc5\"}]},{\"data\":\"sc1\",\"children\":[{\"data\":\"sc5\"}]}]}]}}}";
 
@@ -189,7 +178,7 @@ public class ProtectedObjectsTest {
         protectedObjects.add(protectedObject1);
         protectedObjects.add(protectedObject2);
 
-        String content = generateJson(protectedObjects);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
         String expectedString = "{\"objects\":{\"App2\":{\"data\":\"App2\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\",\"children\":[{\"data\":\"sc2\"}]}]}]},\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\",\"children\":[{\"data\":\"sc2\"}]}]}]}}}";
 
