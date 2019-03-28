@@ -17,4 +17,5 @@ public interface JsonMapperService {
     String generateJson(License license) throws JsonProcessingException;
     ProtectedObject generateProtectedObject(String jsonString) throws IOException;
     List<ProtectedObject> generateListOfProtectedObjects(String jsonString) throws IOException;
+    License generateLicense(String jsonString) throws IOException;
 }
