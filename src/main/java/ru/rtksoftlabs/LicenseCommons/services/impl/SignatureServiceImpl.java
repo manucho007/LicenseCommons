@@ -30,6 +30,10 @@ public class SignatureServiceImpl implements SignatureService {
 
     private FileService fileService;
 
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
     public void setKeyCertificateName(String keyCertificateName) {
         this.keyCertificateName = keyCertificateName;
     }
