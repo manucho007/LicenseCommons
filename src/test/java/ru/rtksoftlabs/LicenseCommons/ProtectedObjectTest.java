@@ -7,6 +7,7 @@ import ru.rtksoftlabs.LicenseCommons.services.JsonMapperService;
 import ru.rtksoftlabs.LicenseCommons.services.impl.JsonMapperServiceImpl;
 import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObject;
 import ru.rtksoftlabs.LicenseCommons.services.ProtectedObjectsService;
+import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObjects;
 
 import java.io.IOException;
 
@@ -23,11 +24,11 @@ public class ProtectedObjectTest {
 
     @Test
     public void toJsonTest() throws JsonProcessingException {
-        ProtectedObject protectedObject = protectedObjectsService.getProtectedObjects().get(0);
+        ProtectedObjects protectedObjects = protectedObjectsService.getProtectedObjects();
 
-        String content = jsonMapperService.generateJson(protectedObject);
+        String content = jsonMapperService.generateJson(protectedObjects);
 
-        String expectedString = "{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\"}]}";
+        String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\"}]},\"App2\":{\"data\":\"App2\"}}}";
 
         assertThat(content).isEqualTo(expectedString);
     }
@@ -49,7 +50,7 @@ public class ProtectedObjectTest {
 
         ProtectedObject protectedObject = jsonMapperService.generateProtectedObject(stringForSearch);
 
-        ProtectedObject protectedObjectManyNodes = protectedObjectsService.getProtectedObjects().get(0);
+        ProtectedObjects protectedObjectManyNodes = protectedObjectsService.getProtectedObjects();
 
         boolean isFind = protectedObjectManyNodes.find(protectedObject);
 
@@ -70,7 +71,7 @@ public class ProtectedObjectTest {
 
         ProtectedObject protectedObject = jsonMapperService.generateProtectedObject(stringForSearch);
 
-        ProtectedObject protectedObjectManyNodes = protectedObjectsService.getProtectedObjects().get(0);
+        ProtectedObjects protectedObjectManyNodes = protectedObjectsService.getProtectedObjects();
 
         boolean isFind = protectedObjectManyNodes.find(protectedObject);
 

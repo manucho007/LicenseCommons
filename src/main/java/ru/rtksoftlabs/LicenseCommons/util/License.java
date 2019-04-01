@@ -1,15 +1,14 @@
 package ru.rtksoftlabs.LicenseCommons.util;
 
-import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObject;
+import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObjects;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class License {
     private LocalDate beginDate;
     private LocalDate endDate;
 
-    private List<ProtectedObject> protectedObjects;
+    private ProtectedObjects protectedObjects;
 
     public License() {
         // That constructor needed for jackson mapping
@@ -23,7 +22,7 @@ public class License {
         return endDate;
     }
 
-    public List<ProtectedObject> getProtectedObjects() {
+    public ProtectedObjects getProtectedObjects() {
         return protectedObjects;
     }
 
@@ -35,7 +34,7 @@ public class License {
         this.endDate = endDate;
     }
 
-    public void setProtectedObjects(List<ProtectedObject> protectedObjects) {
+    public void setProtectedObjects(ProtectedObjects protectedObjects) {
         this.protectedObjects = protectedObjects;
     }
 

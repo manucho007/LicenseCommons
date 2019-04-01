@@ -1,6 +1,7 @@
 package ru.rtksoftlabs.LicenseCommons.shared;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProtectedObjects {
@@ -8,6 +9,10 @@ public class ProtectedObjects {
 
     public ProtectedObjects() {
         objects = new HashMap<>();
+    }
+
+    public ProtectedObjects(Map<String, ProtectedObject> objects) {
+        this.objects = objects;
     }
 
     public Map<String, ProtectedObject> getObjects() {
@@ -66,5 +71,17 @@ public class ProtectedObjects {
 
     public ProtectedObject add(String parent) {
         return addChild(parent);
+    }
+
+    public boolean find(ProtectedObject protectedObject) {
+        List<String> otherList = protectedObject.returnListOfStringsWithPathToAllLeafs();
+
+        for (Map.Entry<String, ProtectedObject> object: objects.entrySet()) {
+            if (object.getValue().returnListOfStringsWithPathToAllLeafs().containsAll(otherList)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

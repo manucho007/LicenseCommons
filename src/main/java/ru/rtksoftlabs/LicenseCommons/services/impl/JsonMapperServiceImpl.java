@@ -53,6 +53,11 @@ public class JsonMapperServiceImpl implements JsonMapperService {
     }
 
     @Override
+    public ProtectedObjects generateProtectedObjects(String jsonString) throws IOException {
+        return getJsonMapper().readValue(jsonString, ProtectedObjects.class);
+    }
+
+    @Override
     public List<ProtectedObject> generateListOfProtectedObjects(String jsonString) throws IOException {
         return getJsonMapper().readValue(jsonString, new TypeReference<List<ProtectedObject>>(){});
     }
