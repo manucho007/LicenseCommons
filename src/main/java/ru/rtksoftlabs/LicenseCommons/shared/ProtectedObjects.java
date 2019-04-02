@@ -3,6 +3,7 @@ package ru.rtksoftlabs.LicenseCommons.shared;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProtectedObjects {
     private Map<String, ProtectedObject> objects;
@@ -85,5 +86,29 @@ public class ProtectedObjects {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProtectedObjects that = (ProtectedObjects) o;
+
+        if(objects.size() == that.getObjects().size() && objects.equals(that.getObjects())) {
+            for (String key: objects.keySet()) {
+                if (!objects.get(key).returnListOfStringsWithPathToAllLeafs().containsAll(that.getObjects().get(key).returnListOfStringsWithPathToAllLeafs())) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(objects);
     }
 }
