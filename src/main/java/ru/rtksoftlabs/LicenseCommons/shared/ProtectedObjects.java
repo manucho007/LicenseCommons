@@ -74,10 +74,12 @@ public class ProtectedObjects {
     }
 
     public boolean find(ProtectedObject protectedObject) {
-        List<String> otherList = protectedObject.returnListOfStringsWithPathToAllLeafs();
+        ProtectedObject findedProtectedObject = objects.get(protectedObject.getData());
 
-        for (Map.Entry<String, ProtectedObject> object: objects.entrySet()) {
-            if (object.getValue().returnListOfStringsWithPathToAllLeafs().containsAll(otherList)) {
+        if (findedProtectedObject != null) {
+            List<String> otherList = protectedObject.returnListOfStringsWithPathToAllLeafs();
+
+            if (findedProtectedObject.returnListOfStringsWithPathToAllLeafs().containsAll(otherList)) {
                 return true;
             }
         }
