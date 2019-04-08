@@ -28,7 +28,7 @@ public class ProtectedObjectTest {
 
         String content = jsonMapperService.generateJson(protectedObjects);
 
-        String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\"}]},\"App2\":{\"data\":\"App2\"}}}";
+        String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"children\":[{\"data\":\"Scripts\",\"children\":[{\"data\":\"sc1\"},{\"data\":\"sc2\"},{\"data\":\"sc3\"}]},{\"data\":\"Roles\",\"children\":[{\"data\":\"r1\",\"children\":[{\"data\":\"childR1\",\"children\":[{\"data\":\"ccr2\"},{\"data\":\"ccr22\"},{\"data\":\"ccr222\"}]}]},{\"data\":\"r2\",\"children\":[{\"data\":\"childR2\",\"children\":[{\"data\":\"ccr2\",\"children\":[{\"data\":\"cccr2\"}]}]}]},{\"data\":\"r3\",\"children\":[{\"data\":\"childR3\"}]}]}]},\"App2\":{\"data\":\"App2\"}}}";
 
         assertThat(content).isEqualTo(expectedString);
     }

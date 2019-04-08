@@ -21,7 +21,15 @@ public class ProtectedObjectsServiceImpl implements ProtectedObjectsService {
         child.addChild("sc2");
         child.addChild("sc3");
 
-        protectedObject1.addChild("Roles");
+        ProtectedObject roles = protectedObject1.addChild("Roles");
+        ProtectedObject subRoles = roles.addChild("r1").addChild("childR1");
+
+        subRoles.addChild("ccr2");
+        subRoles.addChild("ccr22");
+        subRoles.addChild("ccr222");
+
+        roles.addChild("r2").addChild("childR2").addChild("ccr2").addChild("cccr2");
+        roles.addChild("r3").addChild("childR3");
 
         protectedObjects.add(protectedObject1);
         protectedObjects.add(protectedObject2);
