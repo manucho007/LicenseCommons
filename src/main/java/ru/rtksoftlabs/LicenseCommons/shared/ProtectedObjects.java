@@ -13,6 +13,10 @@ public class ProtectedObjects {
     }
 
     public ProtectedObjects(Map<String, ProtectedObject> objects) {
+        if (objects == null) {
+            throw new RuntimeException("null value not allowed");
+        }
+
         this.objects = objects;
     }
 
@@ -20,12 +24,28 @@ public class ProtectedObjects {
         return objects;
     }
 
+    private ProtectedObject putObject(String parent, ProtectedObject protectedObject) {
+        if (parent == null || protectedObject == null || protectedObject.getData() == null) {
+            throw new RuntimeException("null value not allowed");
+        }
+
+        if (parent.equals("") || protectedObject.getData().equals("")) {
+            throw new RuntimeException("empty String value not allowed");
+        }
+
+        if (!parent.equals(protectedObject.getData())) {
+            throw new RuntimeException("parent and protectedObject.data should be equal");
+        }
+
+        return objects.put(parent, protectedObject);
+    }
+
     public ProtectedObject addChild(String parent, String child) {
         if (objects.containsKey(parent)) {
             return objects.get(parent).addChild(child);
         }
 
-        return objects.put(parent, new ProtectedObject(parent).addChild(child));
+        return putObject(parent, new ProtectedObject(parent).addChild(child));
     }
 
     public ProtectedObject addChild(ProtectedObject protectedObject) {
@@ -33,7 +53,7 @@ public class ProtectedObjects {
             return objects.get(protectedObject.getData()).addChilds(protectedObject);
         }
 
-        objects.put(protectedObject.getData(), protectedObject);
+        putObject(protectedObject.getData(), protectedObject);
 
         return protectedObject;
     }
@@ -43,7 +63,7 @@ public class ProtectedObjects {
             return objects.get(parent).addChilds(protectedObject);
         }
 
-        return objects.put(parent, protectedObject);
+        return putObject(parent, protectedObject);
     }
 
     public ProtectedObject addChild(String parent) {
@@ -53,7 +73,7 @@ public class ProtectedObjects {
 
         ProtectedObject protectedObject = new ProtectedObject(parent);
 
-        objects.put(parent, protectedObject);
+        putObject(parent, protectedObject);
 
         return protectedObject;
     }

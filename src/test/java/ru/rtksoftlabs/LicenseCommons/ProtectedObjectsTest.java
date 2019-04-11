@@ -184,4 +184,84 @@ public class ProtectedObjectsTest {
 
         assertThat(content).isEqualTo(expectedString);
     }
+
+    @Test(expected = RuntimeException.class)
+    public void whenCreateNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject(null);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenCreateEmptyStringProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject("");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddEmptyChildThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        protectedObject.addChild("");
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.add(protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddChildNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.addChild(protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddChildToNullParentNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.addChild(null, protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddChildToEmptyParentNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.addChild("", protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddChildToParentNullProtectedObjectThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject();
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.addChild("d", protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddChildDifferentChildToParentThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject("f");
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.addChild("d", protectedObject);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void whenAddDifferentChildToParentThenThrowException() {
+        ProtectedObject protectedObject = new ProtectedObject("f");
+
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        protectedObjects.add("d", protectedObject);
+    }
 }

@@ -10,9 +10,18 @@ public class ProtectedObject {
     private LinkedHashSet<ProtectedObject> children;
 
     public ProtectedObject() {
+        // needed for json mapper
     }
 
     public ProtectedObject(String data) {
+        if (data == null) {
+            throw new RuntimeException("null value not allowed");
+        }
+
+        if (data.equals("")) {
+            throw new RuntimeException("empty String value not allowed");
+        }
+
         this.data = data;
         this.children = new LinkedHashSet<>();
     }
