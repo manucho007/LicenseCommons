@@ -3,6 +3,7 @@ package ru.rtksoftlabs.LicenseCommons;
 import org.junit.Test;
 import ru.rtksoftlabs.LicenseCommons.inno.ProtectedObjectsServiceImpl;
 import ru.rtksoftlabs.LicenseCommons.services.ProtectedObjectsService;
+import ru.rtksoftlabs.LicenseCommons.shared.CheckAccessResult;
 import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObjects;
 import ru.rtksoftlabs.LicenseCommons.shared.ResponseSignUtil;
 
@@ -24,11 +25,11 @@ public class ResponseSignUtilTest {
 
         ProtectedObjects protectedObjects = protectedObjectsService.getProtectedObjects();
 
-        ResponseSignUtil responseSignUtil = new ResponseSignUtil(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        CheckAccessResult checkAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
 
-        ResponseSignUtil expectedResponseSignUtil = new ResponseSignUtil(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        CheckAccessResult expectedCheckAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
 
-        assertThat(responseSignUtil).isEqualToComparingFieldByField(expectedResponseSignUtil);
+        assertThat(checkAccessResult).isEqualToComparingFieldByField(expectedCheckAccessResult);
     }
 
     @Test
