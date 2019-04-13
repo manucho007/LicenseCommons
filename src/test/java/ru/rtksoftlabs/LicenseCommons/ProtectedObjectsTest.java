@@ -264,4 +264,25 @@ public class ProtectedObjectsTest {
 
         protectedObjects.add("d", protectedObject);
     }
+
+    @Test
+    public void whenAddSameChildObjectWithNameInEndThenAutoClapping() throws JsonProcessingException {
+        ProtectedObjects protectedObjects = new ProtectedObjects();
+
+        ProtectedObject protectedObject1 = new ProtectedObject("App1");
+        ProtectedObject protectedObject2 = new ProtectedObject("App1", "Приложение 1");
+
+        protectedObject1.addChild("Scripts", "Скрипты").addChild("sc2").addChild("sc5");
+
+        protectedObject2.addChild("Scripts").addChild("sc1").addChild("sc5");
+
+        protectedObjects.add(protectedObject1);
+        protectedObjects.add(protectedObject2);
+
+        String content = jsonMapperService.generateJson(protectedObjects);
+
+        String expectedString = "{\"objects\":{\"App1\":{\"data\":\"App1\",\"name\":\"Приложение 1\",\"children\":[{\"data\":\"Scripts\",\"name\":\"Скрипты\",\"children\":[{\"data\":\"sc2\",\"children\":[{\"data\":\"sc5\"}]},{\"data\":\"sc1\",\"children\":[{\"data\":\"sc5\"}]}]}]}}}";
+
+        assertThat(content).isEqualTo(expectedString);
+    }
 }

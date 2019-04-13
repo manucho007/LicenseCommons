@@ -40,16 +40,30 @@ public class ProtectedObjects {
         return objects.put(parent, protectedObject);
     }
 
-    public ProtectedObject addChild(String parent, String child) {
+    public ProtectedObject addChild(String parent, String childData) {
+        return addChild(parent, childData, null);
+    }
+
+    public ProtectedObject addChild(String parent, String childData, String childName) {
         if (objects.containsKey(parent)) {
-            return objects.get(parent).addChild(child);
+            return objects.get(parent).addChild(childData, childName);
         }
 
-        return putObject(parent, new ProtectedObject(parent).addChild(child));
+        return putObject(parent, new ProtectedObject(childData, childName));
     }
 
     public ProtectedObject addChild(ProtectedObject protectedObject) {
         if (objects.containsKey(protectedObject.getData())) {
+
+            ProtectedObject existProtectedObject = objects.get(protectedObject.getData());
+
+            if (existProtectedObject.getName() == null) {
+                existProtectedObject.setName(protectedObject.getName());
+            }
+            else if ((protectedObject.getName() != null) && (!existProtectedObject.getName().equals(protectedObject.getName()))) {
+                existProtectedObject.setName(protectedObject.getName());
+            }
+
             return objects.get(protectedObject.getData()).addChilds(protectedObject);
         }
 
@@ -116,7 +130,7 @@ public class ProtectedObjects {
 
         if(objects.size() == that.getObjects().size() && objects.equals(that.getObjects())) {
             for (String key: objects.keySet()) {
-                if (!objects.get(key).returnListOfStringsWithPathToAllLeafs().containsAll(that.getObjects().get(key).returnListOfStringsWithPathToAllLeafs())) {
+                if (!objects.get(key).returnListOfStringsWithPathToAllLeafsWithNames().containsAll(that.getObjects().get(key).returnListOfStringsWithPathToAllLeafsWithNames())) {
                     return false;
                 }
             }
