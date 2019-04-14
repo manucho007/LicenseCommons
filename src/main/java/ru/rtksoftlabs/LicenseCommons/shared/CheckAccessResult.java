@@ -1,17 +1,17 @@
 package ru.rtksoftlabs.LicenseCommons.shared;
 
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
+import java.util.Date;
 
 public class CheckAccessResult {
     private boolean access;
-    private Instant timestamp;
+    private Date timestamp;
     private byte[] hash;
 
     public CheckAccessResult() {
     }
 
-    public CheckAccessResult(String protectedObject, boolean access, Instant timestamp) throws NoSuchAlgorithmException {
+    public CheckAccessResult(String protectedObject, boolean access, Date timestamp) throws NoSuchAlgorithmException {
         this.access = access;
         this.timestamp = timestamp;
         this.hash = ResponseSignUtil.generateHash(protectedObject, access, timestamp);
@@ -25,11 +25,11 @@ public class CheckAccessResult {
         this.access = access;
     }
 
-    public Instant getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

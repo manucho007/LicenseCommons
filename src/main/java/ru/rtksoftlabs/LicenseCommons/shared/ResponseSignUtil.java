@@ -2,11 +2,11 @@ package ru.rtksoftlabs.LicenseCommons.shared;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.util.Base64;
+import java.util.Date;
 
 public class ResponseSignUtil {
-    public static byte[] generateHash(String protectedObject, boolean access, Instant timestamp) throws NoSuchAlgorithmException {
+    public static byte[] generateHash(String protectedObject, boolean access, Date timestamp) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
 
         String saltString = "RtKDec78";

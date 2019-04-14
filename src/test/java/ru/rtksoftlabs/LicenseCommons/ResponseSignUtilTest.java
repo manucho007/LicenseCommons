@@ -8,7 +8,7 @@ import ru.rtksoftlabs.LicenseCommons.shared.ProtectedObjects;
 import ru.rtksoftlabs.LicenseCommons.shared.ResponseSignUtil;
 
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,26 +21,26 @@ public class ResponseSignUtilTest {
 
     @Test
     public void responseSignUtilEqualsTest() throws NoSuchAlgorithmException {
-        Instant instant = Instant.now();
+        Date timestamp = new Date();
 
         ProtectedObjects protectedObjects = protectedObjectsService.getProtectedObjects();
 
-        CheckAccessResult checkAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        CheckAccessResult checkAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, timestamp);
 
-        CheckAccessResult expectedCheckAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        CheckAccessResult expectedCheckAccessResult = new CheckAccessResult(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, timestamp);
 
         assertThat(checkAccessResult).isEqualToComparingFieldByField(expectedCheckAccessResult);
     }
 
     @Test
     public void generateHashTest() throws NoSuchAlgorithmException {
-        Instant instant = Instant.now();
+        Date timestamp = new Date();
 
         ProtectedObjects protectedObjects = protectedObjectsService.getProtectedObjects();
 
-        byte[] generatedHash = ResponseSignUtil.generateHash(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        byte[] generatedHash = ResponseSignUtil.generateHash(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, timestamp);
 
-        byte[] expectedHash = ResponseSignUtil.generateHash(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, instant);
+        byte[] expectedHash = ResponseSignUtil.generateHash(protectedObjects.getObjects().get("App1").returnListOfStringsWithPathToAllLeafs().get(0), true, timestamp);
 
         assertThat(generatedHash).isEqualTo(expectedHash);
     }
